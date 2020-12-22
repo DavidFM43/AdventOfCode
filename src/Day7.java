@@ -6,7 +6,6 @@ public static void main(String[] args){
 Scanner scan = new Scanner(System.in);
 
 HashMap<String,HashSet<String[]>> bags = new HashMap<>();
-int numbags = 0;
 
 for(int i = 0; i < 594 ; i++){
     

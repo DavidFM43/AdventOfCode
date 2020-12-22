@@ -2,6 +2,7 @@ import java.util.*;
 public class Day1 {
 
 	public static void main(String[] args) {
+		
 	Scanner scan = new Scanner(System.in);
 	Set<Integer> set = new HashSet<>();
 	int[] nums = new int[200];
