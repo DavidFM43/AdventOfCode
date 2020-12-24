@@ -1,5 +1,7 @@
-import java.util.*;
+/*
 
+*/
+import java.util.*;
 import java.io.File;
 
 public class Day10_2 {
@@ -39,10 +41,9 @@ public class Day10_2 {
             adapters.remove(adapter);
             cont++;
         }
+        diffs[cont] = highest - joltage;
             
         
-        diffs[cont] = highest - joltage;
-        System.out.println(Arrays.toString(diffs));
         int cons = 0;
         int cont2 = 0;
         List<Integer> results = new ArrayList<>();
@@ -57,7 +58,6 @@ public class Day10_2 {
             cont2++;
             }
 
-    System.out.println(results.toString());
     long ans = 1;
     for(Integer num: results){
        if (num > 1){
