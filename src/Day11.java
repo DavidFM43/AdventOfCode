@@ -9,38 +9,33 @@ public class Day11 {
         Scanner scan = new Scanner(file); 
         String firstLine = scan.nextLine();
         int cont = 2;
+        //Construccion de la matriz de sillas.
         char[][] seatLayout = new char[size+2][firstLine.length()+2];
-        Arrays.fill(seatLayout[0], 'L');
-        Arrays.fill(seatLayout[size+1], 'L');
-        
-        seatLayout[1][0] = 'L';
-        seatLayout[1][firstLine.length()+1] = 'L';
+        Arrays.fill(seatLayout[0], '.');
+        Arrays.fill(seatLayout[size+1], '.');
+        seatLayout[1][0] = '.';
+        seatLayout[1][firstLine.length()+1] = '.';
         for(int z = 1; z < firstLine.length()+1;z++){
             seatLayout[1][z] = firstLine.charAt(z-1);
         }
-        
         while(scan.hasNextLine()){
             String line = scan.nextLine();
-            seatLayout[cont][0] = 'L';
+            seatLayout[cont][0] = '.';
            for(int j = 1; j < firstLine.length()+1;j++){
                 seatLayout[cont][j] = line.charAt(j-1);
            }
-           seatLayout[cont][firstLine.length()+1] = 'L';
+           seatLayout[cont][firstLine.length()+1] = '.';
             cont++;
         } 
         
-        
-        
-        while(true){
-            System.out.println(same(seatLayout,newGen(seatLayout,size)));
+       
+       while(true){
             if(same(seatLayout,newGen(seatLayout, size)))
                 break;
             seatLayout = newGen(seatLayout,size);
             }   
+             
         System.out.println(count(seatLayout,size));
-
-        
-    
 }
 public static long count(char[][] arr, int size){
     long ans = 0;
@@ -54,8 +49,8 @@ public static long count(char[][] arr, int size){
 }
 public static char[][] copy(char[][] arr){
     char[][] copy = new char[arr.length][arr[0].length];
-    for(int i = 1; i < arr.length-1; i++){
-        for(int j = 1; j < arr[0].length-1;j++){
+    for(int i = 0; i < arr.length; i++){
+        for(int j = 0; j < arr[0].length;j++){
             copy[i][j] = arr[i][j];
         }
     }
@@ -72,81 +67,83 @@ public static boolean same(char[][] a1, char[][] a2){
 }
 public static void print(char[][] arr){
 
-    for(int i = 0; i < 93;i++){
+    for(int i = 0; i < 12;i++){
         System.out.println(Arrays.toString(arr[i]));
     }
 }
-public static int occupied(char[][] arr,int y, int x , String dir){ 
 
-    if((y < 0 || y >= arr.length) && (x < 0 || x >= arr[0].length))
-            return 0;
+public static boolean closestSeat(char[][] arr,int y, int x , String dir){ 
+    //Retorna true si la silla mas cercana esta ocupada.
+    if((y == 0 || y == arr.length-1) || (x == 0 || x == arr[0].length-1))
+            return false;
     switch (dir) {
         case "LFT":
+              
             if(arr[y][x-1] == 'L')
-                return 0;            
+                return false;            
             else if (arr[y][x-1] == '#')
-                return 1;
+                return true;
             else
-                occupied(arr, y, x-1, "LFT");
-            break;
+               return closestSeat(arr, y, x-1, "LFT");
+            
+
         case "RGT":
             if(arr[y][x+1] == 'L')
-                return 1;
+                return false;
             else if (arr[y][x+1] == '#')
-                return 0;
+                return true;
             else
-                occupied(arr,y,x+1,"RGT");
-                break;
+                return closestSeat(arr,y,x+1,"RGT");
+            
         case "DWN":
             if(arr[y-1][x] == 'L')
-                return 1;
+                return false;
             else if (arr[y-1][x] == '#')
-                return 0;
+                return true;
             else
-                occupied(arr, y-1, x, "DWN");
-                break;
+                return closestSeat(arr, y-1, x, "DWN");
+            
         case "UP":
-            if(arr[y-1][x] == 'L')
-                return 1;
-            else if (arr[y-1][x] == '#')
-                return 0;
+            if(arr[y+1][x] == 'L')
+                return false;
+            else if (arr[y+1][x] == '#')
+                return true;
             else
-                occupied(arr, y-1, x, "DWN");
-                break;
+                return closestSeat(arr, y+1, x, "UP");
+            
         case "UPL":
-            if(arr[y-1][x] == 'L')
-                return 1;
-            else if (arr[y-1][x] == '#')
-                return 0;
+            if(arr[y+1][x-1] == 'L')
+                return false;
+            else if (arr[y+1][x-1] == '#')
+                return true;
             else
-                occupied(arr, y-1, x, "DWN");
-                break;
+                return closestSeat(arr, y+1, x-1, "UPL");
+           
         case "UPR":
-            if(arr[y-1][x] == 'L')
-                return 1;
-            else if (arr[y-1][x] == '#')
-                return 0;
+            if(arr[y+1][x+1] == 'L')
+                return false;
+            else if (arr[y+1][x+1] == '#')
+                return true;
             else
-                occupied(arr, y-1, x, "DWN");
-            break;
+              return  closestSeat(arr, y+1, x+1, "UPR"); 
         case "DWL":
-            if(arr[y-1][x] == 'L')
-                return 1;
-            else if (arr[y-1][x] == '#')
-                return 0;
+            if(arr[y-1][x-1] == 'L')
+                return false;
+            else if (arr[y-1][x-1] == '#')
+                return true;
             else
-                occupied(arr, y-1, x, "DWN");
-            break;
+                return closestSeat(arr, y-1, x-1, "DWL");
+            
         case "DWR":
-           if(arr[y-1][x] == 'L')
-                return 1;
-            else if (arr[y-1][x] == '#')
-                return 0;
+           if(arr[y-1][x+1] == 'L')
+                return false;
+            else if (arr[y-1][x+1] == '#')
+                return true;
             else
-                occupied(arr, y-1, x, "DWN");
-            break;
-        return 0;
+               return  closestSeat(arr, y-1, x+1, "DWR");
+            
     }
+    return false;
 }
 
 public static char[][] newGen(char[][] seatLayout, int size){
@@ -154,27 +151,29 @@ public static char[][] newGen(char[][] seatLayout, int size){
         for(int y = 1; y < size+1;y++){
             for(int x = 1; x < seatLayout[1].length-1;x++){
                 int cont2 = 0;
-               if(seatLayout[y+1][x] == '#')
+                if(seatLayout[y][x]=='L' || seatLayout[y][x] == '#'){
+               if(closestSeat(seatLayout,y,x,"UP") == true) 
                     cont2++;
-                if(seatLayout[y+1][x+1] == '#')
+                if(closestSeat(seatLayout,y,x,"UPR") == true)
                     cont2++;
-                if(seatLayout[y+1][x-1] == '#')
+                if(closestSeat(seatLayout,y,x,"UPL") == true)
                     cont2++;
-                if(seatLayout[y][x+1] == '#')
+                if(closestSeat(seatLayout,y,x,"RGT") == true)
                     cont2++;
-                if(seatLayout[y][x-1] == '#')
+                if(closestSeat(seatLayout,y,x,"LFT") == true)
                     cont2++;
-                if(seatLayout[y-1][x] == '#')
+                if(closestSeat(seatLayout,y,x,"DWN") == true)
                     cont2++;
-                if(seatLayout[y-1][x+1] == '#')
+                if(closestSeat(seatLayout,y,x,"DWR") == true)
                     cont2++;
-                if(seatLayout[y-1][x-1] == '#')
+                if(closestSeat(seatLayout,y,x,"DWL") == true)
                     cont2++;
             if(seatLayout[y][x]=='L' && cont2 == 0)
                 newLayout [y][x] = '#';
-            else if(seatLayout[y][x] == '#' && cont2 >= 4)
+            else if(seatLayout[y][x] == '#' && cont2 >= 5)
                 newLayout [y][x] = 'L';
             } 
+        }
         }
         return newLayout;
     }
