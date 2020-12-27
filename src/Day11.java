@@ -1,11 +1,10 @@
 import java.util.*;
-
-
 import java.io.File;
+
 public class Day11 {
     public static void main(String[] args) throws Exception{
         int size = 91;
-        File file = new File("C:\\Users\\user\\Desktop\\Test\\AdventOfCode\\src\\input");
+        File file = new File("//home//david//eclipse-workspace//AdventOfCode//src//input");
         Scanner scan = new Scanner(file); 
         String firstLine = scan.nextLine();
         int cont = 2;
@@ -18,6 +17,7 @@ public class Day11 {
         for(int z = 1; z < firstLine.length()+1;z++){
             seatLayout[1][z] = firstLine.charAt(z-1);
         }
+        
         while(scan.hasNextLine()){
             String line = scan.nextLine();
             seatLayout[cont][0] = '.';
@@ -28,7 +28,7 @@ public class Day11 {
             cont++;
         } 
         
-       
+
        while(true){
             if(same(seatLayout,newGen(seatLayout, size)))
                 break;
@@ -178,5 +178,5 @@ public static char[][] newGen(char[][] seatLayout, int size){
         return newLayout;
     }
                 
-
 }
+
