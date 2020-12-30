@@ -16,7 +16,6 @@ public class Day13_1{
             int num = Integer.parseInt(nums[i]);
             ordered.add((long)num);
             map.put((long)num,modulus(-i,num));
-
         }
     }
 
