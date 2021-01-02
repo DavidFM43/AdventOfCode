@@ -53,16 +53,7 @@ public class Day14_2{
         }
         return decimal;
     }
-    public static long toDec(int[] binary){
-        long decimal = 0;
-        int cont = 0;
-        for(int i = binary.length-1; i >= 0; i--){
-            decimal += binary[i]*Math.pow(2,cont);
-            cont++;
-        }
-        return decimal;
-    }
-    public static char[] reversed(char[] arr) {
+   public static char[] reversed(char[] arr) {
         char[] newArray = new char[arr.length];
         for (int i = 0; i < arr.length; i++) {
             newArray[i] = arr[arr.length - 1 - i];
@@ -85,7 +76,7 @@ public class Day14_2{
             }
         }
         if(numx == 0){
-            ads.add((long) toDec(uaddress));
+            ads.add( toDec(uaddress));
         }
         return ads;
     }
@@ -93,9 +84,7 @@ public class Day14_2{
 
     public static char[] clone(char[] arr) {
         char[] clone = new char[arr.length];
-        for (int i = 0; i < arr.length; i++) {
-            clone[i] = arr[i];
-        }
+        System.arraycopy(arr, 0, clone, 0, arr.length);
         return clone;
     }
 }
