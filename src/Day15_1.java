@@ -4,7 +4,6 @@ public class Day15_1 {
     public static void main(String[] args)throws Exception {
         File file = new File("//home//david//eclipse-workspace//AdventOfCode1//src//input");
         Scanner scan = new Scanner(file);
-        LinkedList<Integer> list = new LinkedList<Integer>();
         HashMap<Integer, LinkedList<Integer>> position = new HashMap<>();
         String[] initial = scan.nextLine().split(",");
         for(int i = 0; i < initial.length; i++){
