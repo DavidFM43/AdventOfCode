@@ -2,23 +2,21 @@ import java.util.*;
 import java.io.File;
 public class Day16_2{
     public static void main(String[] args)throws Exception {
-        File file = new File("//home//david//eclipse-workspace//AdventOfCode1//src//input");
+        File file = new File("C:\\Users\\user\\Desktop\\Test\\AdventOfCode\\src\\input");
         Scanner scan = new Scanner(file);
         int cont = 0; 
-        int[][] ranges = new int[40][2];
+        int ans = 0;
+        int[][][] ranges = new int[20][2][2];
         HashSet<Integer> invalid = new HashSet<Integer>();
-         
-        for(int i = 0; i < 20 ; i++ ){
+        HashMap<Integer,Integer> map = new HashMap<Integer,Integer>(); 
+        for(int i = 0; i < 20; i++ ){
             String line = scan.nextLine();
-            String[] first = line.split(":")[1].split("or")[0].trim().split("-");
-            String[] second = line.split(":")[1].split("or")[1].trim().split("-");
-            ranges[cont][0] = Integer.parseInt(first[0]);
-            ranges[cont][1] = Integer.parseInt(first[1]);
+            int[] first = toIntArr(line.split(":")[1].split("or")[0].trim().split("-"));
+            int[] second = toIntArr(line.split(":")[1].split("or")[1].trim().split("-"));
+            ranges[cont][0] = first;
+            ranges[cont][1] = second;
             cont++;
-            ranges[cont][0] = Integer.parseInt(second[0]);
-            ranges[cont][1] = Integer.parseInt(second[1]);
-            cont++;
-        }
+        }           
 
         for(int i = 0; i < 5; i++){
             scan.nextLine();
@@ -33,12 +31,13 @@ public class Day16_2{
             for(int j = 0; j < ticket.length;j++){
                 boolean valid = false;
                 for(int i = 0; i < ranges.length;i++){
-                    if (Integer.parseInt(ticket[j]) >= ranges[i][0] && Integer.parseInt(ticket[j]) <= ranges[i][1]){
+                    if ((Integer.parseInt(ticket[j]) >= ranges[i][0][0] && Integer.parseInt(ticket[j]) <= ranges[i][0][1]) || (Integer.parseInt(ticket[j]) >= ranges[i][1][0] && Integer.parseInt(ticket[j]) <= ranges[i][1][1])){
                        valid = true;
                        break;
                 }
             }
             if(valid == false){
+                ans += Integer.parseInt(ticket[j]);
                 validTicket = false;
                 break;
 
@@ -48,12 +47,33 @@ public class Day16_2{
         stringTickets += stringTicket+" ";
 }
     String[] tickets = stringTickets.split(" ");
-    //Aqui realmente solo debo de checkear los primeros 12 rangos 
-    for(int i = 0; i < tickets.length;i++){
-        for(String ticket: tickets){
-            int value = Integer.parseInt(ticket.split(",")[i]);        
+    for(int j = 0; j < 20; j++){
+        int contador = 0;
+    for(String cosa: tickets){                        
+        int value = Integer.parseInt(cosa.split(",")[j]);
+        if(value < ranges[0][0][0] || value > ranges[0][0][1]) {
+            System.out.println(value);
+        }else if (value < ranges[0][1][0] || value > ranges[0][1][1]){
+            System.out.println(value);
+        }else{
+            contador++;
         }
-    
     }
+    System.out.println("Campo: "+j+". Check:"+contador);
+    }
+/*
+for(Integer key:map.keySet()){
+    System.out.println("Key: "+key+". Value: "+map.get(key));
+}
+*/
+
+
+}
+public static int[] toIntArr(String[] stringArr){
+    int[] intArray = new int[stringArr.length];
+    for(int i = 0; i < intArray.length;i++){
+        intArray[i] = Integer.parseInt(stringArr[i]);
+    }
+    return intArray;
 }
 }
