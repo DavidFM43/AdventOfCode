@@ -7,7 +7,6 @@ public class Day18_2 {
         long ans = 0;
         while(scan.hasNextLine()){
             String input = scan.nextLine();
-            System.out.println(input);
             input = input.replace(" ", "");
             ans += solve(input.toCharArray());
         }
