@@ -59,18 +59,4 @@ public class Day18_2 {
         }
         return postfix;
     }
-    static String reverse(String str){
-        char[] arr = str.toCharArray();
-        char[] reversed = new char[arr.length];
-        for(int i = 0; i < arr.length; i++){
-            if(arr[arr.length-1-i] == '(')
-                reversed[i] = ')';
-            else if(arr[arr.length-1-i] == ')')
-                reversed[i] = '(';
-            else 
-                reversed[i] = arr[arr.length-1-i];
-        }
-        String out = new String(reversed);
-        return out; 
-    }
 }
