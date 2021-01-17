@@ -1,7 +1,6 @@
 import java.util.*;
-
 import java.io.File;
-public class Day18_1 {
+public class Day18_2 {
     public static void main(String[] args) throws Exception{
         File file = new File("C:\\Users\\user\\Desktop\\Test\\AdventOfCode\\src\\input");
         Scanner scan = new Scanner(file);
@@ -9,7 +8,6 @@ public class Day18_1 {
         while(scan.hasNextLine()){
             String input = scan.nextLine();
             input = input.replace(" ", "");
-            input = reverse(input);
             ans += solve(input.toCharArray());
         }
         System.out.println(ans);
@@ -27,7 +25,6 @@ public class Day18_1 {
             }else if(ch == '*'){
                 numbers.push(numbers.pop() * numbers.pop());
             }
-        //System.out.println(numbers);
     }
         return numbers.pop();
     }
@@ -41,32 +38,24 @@ public class Day18_1 {
                 postfix += expression[i];
             }else if(expression[i] == '('){
                 operators.push(expression[i]);
-            }else if(expression[i] == '*' || expression[i] =='+'){
+            
+            }else if(expression[i] == '+'){
                 operators.push(expression[i]);
             }else if(expression[i] == ')'){
                 while(operators.peek() != '#' && operators.peek() != '('){
                     postfix += operators.pop();
                 }
                 operators.pop();
+            }else{
+                while(operators.peek() != '#' && operators.peek() == '+'){
+                        postfix += operators.pop();
+                    }
+                    operators.push(expression[i]);
+                }
             }
-        }
         while(operators.peek() != '#'){
             postfix += operators.pop();
         }
         return postfix;
-    }
-    static String reverse(String str){
-        char[] arr = str.toCharArray();
-        char[] reversed = new char[arr.length];
-        for(int i = 0; i < arr.length; i++){
-            if(arr[arr.length-1-i] == '(')
-                reversed[i] = ')';
-            else if(arr[arr.length-1-i] == ')')
-                reversed[i] = '(';
-            else 
-                reversed[i] = arr[arr.length-1-i];
-        }
-        String out = new String(reversed);
-        return out; 
     }
 }
