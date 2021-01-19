@@ -3,7 +3,7 @@ import java.io.File;
 
 public class Day17_2 {
     public static void main(String[] args) throws Exception {
-        File file = new File("//home//david//eclipse-workspace//AdventOfCode1//src//input");
+        File file = new File("C:\\Users\\user\\Desktop\\Test\\AdventOfCode\\src\\input");
         Scanner scan = new Scanner(file);
         int rows = 8;
         int columns = 8;
