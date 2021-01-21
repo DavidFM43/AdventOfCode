@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.File;
 
-public class Day19_1 {
+public class Day19_2 {
     public static void main(String[] args) throws Exception {
         File file = new File("//home//david//eclipse-workspace//AdventOfCode1//src//input");
 
@@ -30,44 +30,52 @@ public class Day19_1 {
         //Computing the result for the messages.
         int acc = 0;
         for (String message : messages) {
-            if (compute(0, message, rules) == message.length())
+            if (compute(0,message,rules).contains(message.length()))
                 acc++;
         }
-        //Printing the answer.
         System.out.println(acc);
     }
+
     //Compute function.
-    public static int compute(int ruleNum, String message, HashMap<Integer, String> rules) {
+    public static ArrayList<Integer> compute(int ruleNum, String message, HashMap<Integer, String> rules) {
         String rl = rules.get(ruleNum);
+        ArrayList<Integer> re = new ArrayList<>();
         if (rl.startsWith("\"a\"")) {
-            if (message.startsWith("a"))
-                return 1;
+            if (message.startsWith("a")) {
+                re.add(1);
+                return re;
+            }
             else
-                return -1;
+                return re;
         } else if (rl.startsWith("\"b\"")) {
-            if (message.startsWith("b"))
-                return 1;
+            if (message.startsWith("b")) {
+                re.add(1);
+                return re;
+            }
             else
-                return -1;
+                return re;
         }
         String[] ruleContent = rl.split(" \\| ");
+        ArrayList<Integer> compt = new ArrayList<>();
         for (String opt : ruleContent) {
-            int acc = 0;
+            ArrayList<Integer> acc = new ArrayList<>();
+            acc.add(0);
             String[] cnt = opt.split(" ");
             for (String cn : cnt) {
+                ArrayList<Integer> totalAcc = new ArrayList<>();
                 int rn = Integer.parseInt(cn);
-                int ret = compute(rn,message.substring(acc),rules);
-                if(ret == -1){
-                    acc = ret;
-                    break;
+                for(Integer ac : acc) {
+                    ArrayList<Integer> ret = compute(rn, message.substring(ac, message.length()), rules);
+                    for(Integer c : ret) {
+                        totalAcc.add(ac + c);
+                    }
                 }
-                acc += ret;
+                acc = totalAcc;
             }
-            if (acc != -1)
-                return acc;
+            for(Integer ac : acc){
+                compt.add(ac);
+            }
+            }
+            return compt;
         }
-        return -1;
-
-
-    }
 }
