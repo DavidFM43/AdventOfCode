@@ -1,7 +1,6 @@
 import java.io.File;
 import java.util.*;
 import java.util.Scanner;
-//TODO: Arreglar(Simplificar) la verificacion de las rotacione y los flips.
 public class Day20_1 {
     public static void main(String[] args) throws Exception {
         File file = new File("//home//david//eclipse-workspace//AdventOfCode1//src//example");
