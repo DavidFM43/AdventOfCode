@@ -1,9 +1,10 @@
 import java.io.File;
 import java.util.*;
 import java.util.Scanner;
+//TODO: El input debe tener dos lineas en blanco al final para que se pueda leer el ultimo tile.
 public class Day20_1 {
     public static void main(String[] args) throws Exception {
-        File file = new File("//home//david//eclipse-workspace//AdventOfCode1//src//example");
+        File file = new File("//home//david//eclipse-workspace//AdventOfCode1//src//input");
         Scanner scan = new Scanner(file);
         HashMap<Integer,String[]> imageArray = new HashMap<>();
 
@@ -31,7 +32,6 @@ public class Day20_1 {
                 imageArray.put(tileNum,tileSides);
                 inTile = false;
                 tileImage = "";
-
             }
         }
 
@@ -52,9 +52,9 @@ public class Day20_1 {
         }
 
         System.out.println(ans);
+        System.out.println(imageArray.keySet().size());
 
-
-        }
+    }
 
 
     static String reverse(String arr){
